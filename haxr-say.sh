@@ -230,8 +230,6 @@ make_textbox() {
 }
 
 make_ascii_art() {
-    # filename="$1"
-
     art=("$@")
     art_lines_n=${#art[@]}
 
@@ -276,17 +274,6 @@ say() {
     done
 }
 
-# msg=()
-#
-# if [ ! -t 0 ]
-# then
-# msg+=($(cat -))
-# fi
-#
-# echo ${msg[@]}
-
-# say $@ | lolcat
-
 msg=()
 lol=false
 leet=false
@@ -298,29 +285,29 @@ while [[ $# -gt 0 ]]; do
     -c | --color)
         color="$2"
         use_color=true
-        shift # past argument
-        shift # past value
+        shift
+        shift
         ;;
     -a | --art)
         art_name="$2"
-        shift # past argument
-        shift # past value
+        shift
+        shift
         ;;
     -l | --lol)
         lol=true
-        shift # past argument
+        shift
         ;;
     -e | --leet)
         leet=true
-        shift # past argument
+        shift
         ;;
     -h | --help)
         help
         exit 0
         ;;
-    *)              # unknown option
-        msg+=("$1") # save it in an array for later
-        shift       # past argument
+    *)
+        msg+=("$1")
+        shift
         ;;
     esac
 done
