@@ -273,6 +273,15 @@ say() {
 
         printf "%s    %s\n" "${ascii_art_lines[i]}" "$box_line"
     done
+
+    if (( textbox_end_line > ascii_art_lines_n ))
+    then
+		for((i = textbox_lines_n - textbox_lines_n + ascii_art_lines_n ; i < textbox_lines_n; i++))
+		do
+			box_line="${textbox_lines[$i]}"
+			printf "%${ascii_art_max_column}s    %s\n" "" "$box_line"
+		done
+   	fi
 }
 
 msg=()
