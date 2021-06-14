@@ -206,7 +206,8 @@ help() {
 }
 
 make_leet() {
-    printf "$@" | sed 's/e/3/g' | sed 's/o/0/g' | sed 's/a/4/g' | sed 's/E/3/g' | sed 's/O/0/g' | sed 's/A/4/g'
+	local IFS=' '
+	printf "$*" | sed 's/e/3/g' | sed 's/o/0/g' | sed 's/a/4/g' | sed 's/E/3/g' | sed 's/O/0/g' | sed 's/A/4/g'
 }
 
 make_textbox() {
@@ -328,7 +329,7 @@ if [[ ! $use_color ]] && [[ ! -v colors[$color] ]]; then
 fi
 
 if $leet; then
-    msg=$(make_leet "${msg[@]}")
+	msg=($(make_leet "${msg[@]}"))
 fi
 
 if $lol && $use_color; then
