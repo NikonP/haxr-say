@@ -156,14 +156,16 @@ arts[glider2]="
 ###########.  .###########  .###########
 "
 
-left="│"
+left="║"
 right="│"
 top="─"
 bottom="─"
-top_right="┐"
-bottom_right="┘"
-top_left="┌"
-bottom_left="└"
+top_right="█"
+bottom_right="█"
+top_left="█"
+bottom_left="█"
+box_beginning="▄\n║\n║"
+
 msg_max_len=40
 
 declare -A colors
@@ -223,6 +225,8 @@ make_textbox() {
     top_side=$(printf "$top_left%${border_len}s$top_right" | sed "s/ /$top/g")
     bottom_side=$(printf "$bottom_left%${border_len}s$bottom_right" | sed "s/ /$top/g")
 
+    textbox_lines+=($(printf "$box_beginning"))
+
     textbox_lines+=("$top_side")
     for l in $(printf $msg | sed -r "s/(.{$msg_max_len})/\1\n/g"); do
         textbox_lines+=($(printf "$left %-${msg_len}s $right\n" "$l"))
@@ -256,7 +260,8 @@ say() {
     ascii_art_lines_n=${#ascii_art_lines[@]}
     textbox_lines_n=${#textbox_lines[@]}
 
-    textbox_start_line=$(((ascii_art_lines_n / 2) - (textbox_lines_n / 2)))
+    textbox_start_line=4
+    # textbox_start_line=$(((ascii_art_lines_n / 2) - (textbox_lines_n / 2)))
 
     if ((textbox_start_line < 0)); then
         textbox_start_line=0
