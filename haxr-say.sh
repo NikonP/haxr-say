@@ -164,7 +164,7 @@ top_right="█"
 bottom_right="█"
 top_left="█"
 bottom_left="█"
-box_beginning="▄\n║\n║"
+box_end_str="║\n║\n▀"
 
 msg_max_len=40
 
@@ -225,13 +225,12 @@ make_textbox() {
     top_side=$(printf "$top_left%${border_len}s$top_right" | sed "s/ /$top/g")
     bottom_side=$(printf "$bottom_left%${border_len}s$bottom_right" | sed "s/ /$top/g")
 
-    textbox_lines+=($(printf "$box_beginning"))
-
     textbox_lines+=("$top_side")
     for l in $(printf $msg | sed -r "s/(.{$msg_max_len})/\1\n/g"); do
         textbox_lines+=($(printf "$left %-${msg_len}s $right\n" "$l"))
     done
     textbox_lines+=("$bottom_side")
+    textbox_lines+=($(printf "$box_end_str"))
 }
 
 make_ascii_art() {
