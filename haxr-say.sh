@@ -206,8 +206,8 @@ help() {
 }
 
 make_leet() {
-	local IFS=' '
-	printf "$*" | sed 's/e/3/g' | sed 's/o/0/g' | sed 's/a/4/g' | sed 's/E/3/g' | sed 's/O/0/g' | sed 's/A/4/g'
+    local IFS=' '
+    printf "$*" | sed 's/e/3/g' | sed 's/o/0/g' | sed 's/a/4/g' | sed 's/E/3/g' | sed 's/O/0/g' | sed 's/A/4/g'
 }
 
 make_textbox() {
@@ -274,14 +274,12 @@ say() {
         printf "%s    %s\n" "${ascii_art_lines[i]}" "$box_line"
     done
 
-    if (( textbox_end_line > ascii_art_lines_n ))
-    then
-		for((i = textbox_lines_n - textbox_lines_n + ascii_art_lines_n ; i < textbox_lines_n; i++))
-		do
-			box_line="${textbox_lines[$i]}"
-			printf "%${ascii_art_max_column}s    %s\n" "" "$box_line"
-		done
-   	fi
+    if ((textbox_end_line > ascii_art_lines_n)); then
+        for ((i = textbox_lines_n - textbox_lines_n + ascii_art_lines_n; i < textbox_lines_n; i++)); do
+            box_line="${textbox_lines[$i]}"
+            printf "%${ascii_art_max_column}s    %s\n" "" "$box_line"
+        done
+    fi
 }
 
 msg=()
@@ -338,7 +336,7 @@ if [[ ! $use_color ]] && [[ ! -v colors[$color] ]]; then
 fi
 
 if $leet; then
-	msg=($(make_leet "${msg[@]}"))
+    msg=($(make_leet "${msg[@]}"))
 fi
 
 if $lol && $use_color; then
