@@ -166,6 +166,16 @@ top_left="█"
 bottom_left="█"
 box_end_str="║\n║\n▀"
 
+keyboard_left="|"
+keyboard_right="|"
+keyboard_top="-"
+keyboard_bottom="-"
+keyboard_top_right="#"
+keyboard_bottom_right="#"
+keyboard_top_left="#"
+keyboard_bottom_left="#"
+keyboard_box_end_str="|\n|\n#"
+
 msg_max_len=40
 
 declare -A colors
@@ -194,17 +204,16 @@ print_array() {
 help() {
     printf "Usage: haxr-say [OPTIONS] text\n\n"
     printf " ${colors[cyan]}1337$nc text in ${colors[green]}1337$nc box with ${colors[red]}1337$nc ascii art\n\n"
-    printf "  -a, --art\tAscii art to use (default anonymous1)\n"
-    printf "\t Arts: "
+    printf "  -a, --art\t\tAscii art to use (default anonymous1) "
     print_array "," "${!arts[@]}"
-    printf "\n\n"
-    printf "  -c, --color\tColor to use\n"
-    printf "\t Colors: "
+    printf "\n"
+    printf "  -c, --color\t\tColor to use "
     print_array "," "${!colors[@]}"
-    printf "\n\n"
-    printf "  -l, --lol\tRainbow output\n"
-    printf "  -e, --leet\tMake text m0r3 ${colors[green]}1337$nc\n"
-    printf "  -h, --help\tShow this message\n"
+    printf "\n"
+    printf "  -l, --lol\t\tRainbow output\n"
+    printf "  -e, --leet\t\tMake text m0r3 ${colors[green]}1337$nc\n"
+    printf "  -k, --keyboard\tUse only keyboard symbols for textbox borders\n"
+    printf "  -h, --help\t\tShow this message\n"
 }
 
 make_leet() {
@@ -290,6 +299,7 @@ msg=()
 lol=false
 leet=false
 use_color=false
+use_keyboard=false
 
 while [[ $# -gt 0 ]]; do
     key="$1"
@@ -311,6 +321,10 @@ while [[ $# -gt 0 ]]; do
         ;;
     -e | --leet)
         leet=true
+        shift
+        ;;
+    -k | --keyboard)
+        use_keyboard=true
         shift
         ;;
     -h | --help)
@@ -341,6 +355,18 @@ fi
 
 if $leet; then
     msg=($(make_leet "${msg[@]}"))
+fi
+
+if $use_keyboard; then
+    left=$keyboard_left
+    right=$keyboard_right
+    top=$keyboard_top
+    bottom=$keyboard_bottom
+    top_right=$keyboard_top_right
+    bottom_right=$keyboard_bottom_right
+    top_left=$keyboard_top_left
+    bottom_left=$keyboard_bottom_left
+    box_end_str=$keyboard_box_end_str
 fi
 
 if $lol && $use_color; then
