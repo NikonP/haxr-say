@@ -1,4 +1,5 @@
 #!/bin/bash
+# flag for ptzctf: ptzctf{haxr_asks_haxr}
 
 echo "chmod +x"
 chmod +x haxr-say.sh
